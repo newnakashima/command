@@ -10,7 +10,7 @@ $ alias vim='nvim'
 エイリアスを設定してても``\vim``などとバックスラッシュをつけてやれば元のコマンドを使うことができる。
 
 ## case
-swich case 的なことができる。
+switch case 的なことができる。
 
 ```
 case $1 in
