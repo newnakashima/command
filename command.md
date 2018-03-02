@@ -9,6 +9,23 @@ $ alias vim='nvim'
 
 エイリアスを設定してても``\vim``などとバックスラッシュをつけてやれば元のコマンドを使うことができる。
 
+## case
+swich case 的なことができる。
+
+```
+case $1 in
+    0)
+        echo aho ;;
+    1) 
+        echo baka ;;
+    *)
+        echo manuke ;;
+esac
+```
+
+書き方が独特なので注意する。
+*)はdefaultみたいなやつ。
+
 ## cat
 ファイルの内容を表示する。lessとかmoreとかとは違って一気にファイルの中身を表示する。
 
@@ -86,6 +103,16 @@ $ declare -f
 ## env
 環境変数を表示する。
 
+## for
+ループ処理できる。
+
+```
+for number $(seq 1 10)
+do
+  echo $number
+done
+```
+
 ## function
 関数を定義する。
 
@@ -107,15 +134,23 @@ if文を作れる。条件分岐で処理を変えることができる。
 ```
 if [ -ne $? 0 ]; then
   echo success!
+else
+  echo failed...
 fi
 ```
+
+else if 的なことをしたい場合は``elif``と書く。
 
 条件文の中身については``test``の項を参照。
 
 ## less
 ファイルを一画面ずつ表示する。
+
 Emacsっぽい操作もVimっぽい操作も両方使える。
+
 ``less +F /path/to/logfile``とかすることで``tail -f``みたいなこともできる。
+
+色付きで表示したい場合は``less -r``するとよい。
 
 ## printenv
 環境変数を表示する。
@@ -190,15 +225,30 @@ testは``[ オプション&引数 ]``という書き方もできる。
 
 ### testの色々な使い方
 
-| 例                 | 意味                                 |
-| ---                | ---                                  |
-| ``test $1 -eq $2`` | $1と$2が等しい数値である             |
-| ``test $1 -ne $2`` | $1と$2が異なる数値である             |
-| ``test $1 -lt $2`` | $1が$2より小さい(**l**ess **t**han)  |
-| ``test $1 -le $2`` | $1が$2以下(**l**ess or **e**qual)    |
-| ``test $1 -ge $2`` | $1が$2以上(**g**reater or **e**qual) |
-| ``test $1 = $2``   | 文字列$1と文字列$2が等しい           |
-| ``test $1 != $2``  | 文字列$1と文字列$2が等しくない       |
+| 例                                     | 意味                                                   |
+| ---                                    | ---                                                    |
+| ``test $1 -eq $2``                     | $1と$2が等しい数値である                               |
+| ``test $1 -ne $2``                     | $1と$2が異なる数値である                               |
+| ``test $1 -lt $2``                     | $1が$2より小さい(**l**ess **t**han)                    |
+| ``test $1 -le $2``                     | $1が$2以下(**l**ess or **e**qual)                      |
+| ``test $1 -ge $2``                     | $1が$2以上(**g**reater or **e**qual)                   |
+| ``test $1 = $2``                       | 文字列$1と文字列$2が等しい                             |
+| ``test $1 != $2``                      | 文字列$1と文字列$2が等しくない                         |
+| ``test -n $str``                       | 文字列$strの長さが0より大きい                          |
+| ``test -z $str``                       | 文字列$strの長さが0                                    |
+| ``test -f ~/.bashrc``                  | .bashrcがファイルである                                |
+| ``test -d ~/.ssh``                     | .sshがディレクトリである                               |
+| ``test -r ~/.bashrc``                  | .bashrcが読み込み可                                    |
+| ``test -w ~/.vimrc``                   | .vimrcが書き込み可                                     |
+| ``test -x /bin/bash``                  | bashが実行可能                                         |
+| ``test -s test.txt``                   | test.txtのサイズが0より大きい                          |
+| ``test -L link``                       | linkがシンボリックリンクである                         |
+| ``test -e ~/.bash_profile``            | .bash_profileが存在する                                |
+| ``test file1 -nt file2``               | file1の更新日がfile2より新しい(**n**ewer **t**han)     |
+| ``test file1 -ot file2``               | file1の更新日がfile2より古い(**o**lder **t**han)       |
+| ``! test -n $str``                     | 文字列$strの長さが0より大きければ偽(!は論理否定)       |
+| ``test -n $hoge = abc -a $fuga = def`` | $hogeがabcと等しく、かつ$fugaがdefと等しい(-aは論理積) |
+| ``test -n $hoge = abc -o $fuga = def`` | $hogeがabcと等しいか、$fugaがdefと等しい(-oは論理和)   |
 
 ## unalias
 エイリアスを解除する
