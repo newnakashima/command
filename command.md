@@ -1,4 +1,6 @@
 # Linux基本コマンドまとめ
+例文で、頭に$とか#がついているのはコマンドラインでの実行例。
+ついてないやつはシェルスクリプトの例文。
 
 ## alias
 コマンドのエイリアスを設定する。
@@ -152,9 +154,61 @@ Emacsっぽい操作もVimっぽい操作も両方使える。
 
 色付きで表示したい場合は``less -r``するとよい。
 
+## let
+数値計算をする。
+
+```
+$ hoge=10
+$ let fuga = hoge + 10
+$ echo fuga
+```
+
+シェルでは>とか>>とか&とかの文字が特殊文字なので、ビット演算をするときはエスケープしないといけない。
+
+```
+$ let 'piyo=2<<3'
+$ echo $piyo
+16
+```
+
 ## printenv
 環境変数を表示する。
 引数に変数を指定するとその変数の値だけを表示する。
+
+## read
+標準入力から入力を受け取る。
+
+```
+read input
+echo $input
+```
+
+while文に組み合わせることもできる。
+
+```
+$ cat lines.txt
+aaa
+bbb
+ccc
+```
+
+echolines.sh
+
+```
+number=1
+while read line
+do
+  echo $number $line
+  let number=number+1
+done < $1
+```
+
+```
+$ ./echolines.sh lines.txt
+1 aaa
+2 bbb
+3 ccc
+```
 
 ## rm
 ファイルを削除する。
@@ -271,3 +325,14 @@ $ echo $hoge
 # 何も出力されない
 ```
 
+## while
+while文を書ける。
+
+```
+number=0
+while [ $number -lt 10 ]
+do
+  echo $number
+  let number=number+1
+done
+```
