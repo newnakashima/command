@@ -134,7 +134,7 @@ fuga
 if文を作れる。条件分岐で処理を変えることができる。
 
 ```
-if [ -ne $? 0 ]; then
+if [ $? -eq 0 ]; then
   echo success!
 else
   echo failed...
